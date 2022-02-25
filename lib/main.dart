@@ -7,6 +7,7 @@ import 'package:facebook_setup_package/facebook_setup_package.dart';
 import 'package:path/path.dart' as path;
 import 'package:yaml/yaml.dart';
 import 'package:facebook_setup_package/custom_exceptions.dart';
+import 'package:facebook_setup_package/constants.dart';
 
 import 'custom_exceptions.dart';
 
@@ -143,16 +144,16 @@ Map<String, dynamic> loadConfigFile(String path, String? fileOptionResult) {
   // ignore: always_specify_types
   final Map yamlMap = loadYaml(yamlString);
 
-  if ((yamlMap['flutter_icons'] is! Map)) {
+  if ((yamlMap['facebook_setup_package'] is! Map)) {
     stderr.writeln(NoConfigFoundException('Check that your config file '
         '`${fileOptionResult ?? defaultConfigFile}`'
-        ' has a `flutter_icons` section'));
+        ' has a `facebook_setup_package` section'));
     exit(1);
   }
 
   // yamlMap has the type YamlMap, which has several unwanted sideeffects
   final Map<String, dynamic> config = <String, dynamic>{};
-  for (MapEntry<dynamic, dynamic> entry in yamlMap['flutter_icons'].entries) {
+  for (MapEntry<dynamic, dynamic> entry in yamlMap['facebook_setup_package'].entries) {
     config[entry.key.toString()] = entry.value;
   }
 
@@ -163,35 +164,34 @@ Map<String, dynamic> loadConfigFile(String path, String? fileOptionResult) {
 Future<void> createSettingFromConfig(Map<String, dynamic> config,
     [String? flavor]) async {
 
-  print("TODOOO" );
-  print(config);
+  if (!isFbKeyInConfig(config)) {
+    throw const InvalidConfigException(errorMissingFbKey);
+  }
 
-  //final updater = Updater();
-  //updater.updateIosApplicationIdFromConfig(context);
+  if (!hasPlatformConfig(config)) {
+    throw const InvalidConfigException(errorMissingPlatform);
+  }
 
-  // if (!isImagePathInConfig(config)) {
-  //   throw const InvalidConfigException(errorMissingImagePath);
-  // }
-  // if (!hasPlatformConfig(config)) {
-  //   throw const InvalidConfigException(errorMissingPlatform);
-  // }
-  //
-  // if (isNeedingNewAndroidIcon(config) || hasAndroidAdaptiveConfig(config)) {
-  //   final int minSdk = android_launcher_icons.minSdk();
-  //   if (minSdk < 26 &&
-  //       hasAndroidAdaptiveConfig(config) &&
-  //       !hasAndroidConfig(config)) {
-  //     throw const InvalidConfigException(errorMissingRegularAndroid);
-  //   }
-  // }
-  //
-  // if (isNeedingNewAndroidIcon(config)) {
-  //   android_launcher_icons.createDefaultIcons(config, flavor);
-  // }
-  // if (hasAndroidAdaptiveConfig(config)) {
-  //   android_launcher_icons.createAdaptiveIcons(config, flavor);
-  // }
-  // if (isNeedingNewIOSIcon(config)) {
-  //   ios_launcher_icons.createIcons(config, flavor);
-  // }
+  final updater = Updater();
+  await updater.updateIosApplicationIdFromConfig(config);
+
+  print("------------------------------------------");
+
+}
+
+
+bool isFbKeyInConfig(Map<String, dynamic> flutterIconsConfig) {
+  return flutterIconsConfig.containsKey('fb_app_id')
+      && flutterIconsConfig.containsKey('fb_app_name');
+}
+
+bool hasPlatformConfig(Map<String, dynamic> flutterIconsConfig) {
+  return hasAndroidConfig(flutterIconsConfig) ||
+      hasIOSConfig(flutterIconsConfig);
+}
+bool hasAndroidConfig(Map<String, dynamic> flutterLauncherIcons) {
+  return flutterLauncherIcons.containsKey('android');
+}
+bool hasIOSConfig(Map<String, dynamic> flutterLauncherIconsConfig) {
+  return flutterLauncherIconsConfig.containsKey('ios');
 }

@@ -44,22 +44,20 @@ class Updater {
 //   );
 // }
 
-  Future<void> updateIosApplicationIdFromConfig(String context) async {
+  Future<void> updateIosApplicationIdFromConfig(Map<String, dynamic> flutterIconsConfig) async {
     stdout.writeln('Updating iOS application name');
-    var data = jsonDecode(await getJsonAsString(context));
-    stdout.writeln(data);
     await FileUpdater.updateFile(
       File(IOS_PLIST_FILE),
       Plist(
         'FacebookAppID',
-        data['FacebookAppID'],
+        flutterIconsConfig['fb_app_id'].toString(),
       ),
     );
     await FileUpdater.updateFile(
       File(IOS_PLIST_FILE),
       Plist(
         'FacebookDisplayName',
-        data['FacebookDisplayName'],
+        flutterIconsConfig['fb_app_mame'].toString(),
       ),
     );
   }
