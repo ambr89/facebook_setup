@@ -1,0 +1,9 @@
+dev_dependencies:
+
+  facebook_setup_package:
+    path: ../../
+
+facebook_setup_package:
+  fb_key: "YOUR_FACEBOOK_KEY"
+  android: true # can specify file name here e.g. "ic_launcher"
+  ios: true # can specify file name here e.g. "My-Launcher-Icon"

@@ -1,9 +1,3 @@
-import 'dart:io';
-
-import 'package:image/image.dart';
-
-import 'custom_exceptions.dart';
-
 void printStatus(String message) {
   print('• $message');
 }

@@ -1,6 +1,5 @@
-import 'package:flutter_test/flutter_test.dart';
-
 import 'package:facebook_setup_package/facebook_setup_package.dart';
+import 'package:test/test.dart';
 
 // void main() {
 //   test('adds one to input values', () {

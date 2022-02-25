@@ -7,6 +7,7 @@ import 'dart:io';
 import 'file_updater.dart';
 import 'rules/plist.dart';
 
+
 // /// A Calculator.
 // class Calculator {
 //   /// Returns [value] plus 1.
@@ -17,6 +18,9 @@ const String fileOption = 'file';
 const String helpFlag = 'help';
 
 const String IOS_PLIST_FILE = "ios/Runner/Info.plist";
+
+
+
 
 class Updater {
   Future<String> getJsonAsString(String context) async{
