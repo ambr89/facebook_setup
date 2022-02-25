@@ -74,7 +74,7 @@ Future<void> setFacebookKeys(List<String> arguments) async {
   if (!hasFlavors) {
     try {
       createSettingFromConfig(yamlConfig);
-      print('\n✓ Successfully generated launcher icons');
+      stdout.writeln('\n✓ Successfully generated launcher icons');
     } catch (e) {
       stderr.writeln('\n✕ Could not generate launcher icons');
       stderr.writeln(e);
@@ -83,12 +83,12 @@ Future<void> setFacebookKeys(List<String> arguments) async {
   } else {
     try {
       for (String flavor in flavors) {
-        print('\nFlavor: $flavor');
+        stdout.writeln('\nFlavor: $flavor');
         final Map<String, dynamic> yamlConfig =
         loadConfigFile(flavorConfigFile(flavor), flavorConfigFile(flavor));
         await createSettingFromConfig(yamlConfig, flavor);
       }
-      print('\n✓ Successfully generated launcher icons for flavors');
+      stdout.writeln('\n✓ Successfully generated launcher icons for flavors');
     } catch (e) {
       stderr.writeln('\n✕ Could not generate launcher icons for flavors');
       stderr.writeln(e);
@@ -175,7 +175,7 @@ Future<void> createSettingFromConfig(Map<String, dynamic> config,
   final updater = Updater();
   await updater.updateIosApplicationIdFromConfig(config);
 
-  print("------------------------------------------");
+  stdout.writeln("------------------------------------------");
 
 }
 

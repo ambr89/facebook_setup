@@ -1,5 +1,7 @@
+import 'dart:io';
+
 void printStatus(String message) {
-  print('• $message');
+  stdout.writeln('• $message');
 }
 
 String generateError(Exception e, String? error) {

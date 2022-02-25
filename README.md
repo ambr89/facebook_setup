@@ -28,12 +28,15 @@ start using the package.
 TODO: Include short and useful examples for package users. Add longer examples
 to `/example` folder. 
 
-```dart
-const like = 'sample';
+```bash
+flutter pub run bin/main -f ./test/config/test_pubspec.yaml
+flutter pub run facebook_setup_package:main -f pubspec_movs.yaml
 ```
+
 
 ## Additional information
 
 TODO: Tell users more about the package: where to find more information, how to 
 contribute to the package, how to file issues, what response they can expect 
 from the package authors, and more.
+
