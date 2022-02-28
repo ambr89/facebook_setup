@@ -12,6 +12,7 @@ const String iosDefaultIconFolder =
     'ios/Runner/Assets.xcassets/AppIcon.appiconset/';
 const String iosAssetFolder = 'ios/Runner/Assets.xcassets/';
 const String iosConfigFile = 'ios/Runner.xcodeproj/project.pbxproj';
+const String IOS_PLIST_FILE = "ios/Runner/Info.plist";
 const String iosDefaultIconName = 'Icon-App';
 
 const String errorMissingFbKey =
@@ -19,7 +20,8 @@ const String errorMissingFbKey =
 const String errorMissingPlatform =
     'No platform specified within config to generate icons for.';
 const String noInfoPlistFileFoundName =
-    'File Info.plist to get information from was not found: ';
+    'File Info.plist to get information from was not found in: ' + IOS_PLIST_FILE;
+
 
 String introMessage(String currentVersion) => '''
   ════════════════════════════════════════════

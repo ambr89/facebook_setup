@@ -29,6 +29,7 @@ class NoConfigFoundException implements Exception {
     return generateError(this, message);
   }
 }
+
 //
 // class NoDecoderForImageFormatException implements Exception {
 //   const NoDecoderForImageFormatException([this.message]);

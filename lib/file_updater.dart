@@ -1,35 +1,72 @@
 import 'dart:io';
 
+import 'package:xml/xml.dart';
+
 class UpdateRule {
   String update(String line) => line;
+  bool updateXml(String line) => false;
+  bool hasChanged() => true;
+  String getKey() => '';
+  String getValue() => '';
+  bool isXmlFile() => true;
+  bool xmlHasKey(XmlDocument document) => false;
+  bool addXml(XmlDocument document) => false;
 }
 
 class FileUpdater {
-  FileUpdater(List<String> lines) : _data = lines;
-
+  FileUpdater(List<String> lines,XmlDocument document) : _data = lines, _xml = document;
   final List<String> _data;
+  final XmlDocument _xml;
 
   static Future<void> updateFile(File file, UpdateRule updateRule) async {
     final FileUpdater fileUpdater = await FileUpdater.fromFile(file);
-    fileUpdater.update(updateRule);
-    fileUpdater.toFile(file);
+    bool fromXml = fileUpdater.update(updateRule);
+    if (fromXml) {
+      fileUpdater.toFileXml(file);
+    }
+    else {
+      fileUpdater.toFile(file);
+    }
   }
 
   static FileUpdater fromString(String s) {
-    return FileUpdater(s.split('\n'));
+    return FileUpdater(s.split('\n'), XmlDocument.parse(s));
   }
 
   static Future<FileUpdater> fromFile(File file) async {
-    return FileUpdater(await file.readAsLines());
+    return FileUpdater(await file.readAsLines(), XmlDocument.parse(file.readAsStringSync()));
   }
 
   Future<void> toFile(File file) async {
     await file.writeAsString(_data.join('\n'));
   }
 
-  void update(UpdateRule rule) {
-    for (int x = 0; x < _data.length; x++) {
-      _data[x] = rule.update(_data[x]);
+  Future<void> toFileXml(File file) async {
+    await file.writeAsString(_xml.toXmlString(pretty: true, indent: '\t'));
+  }
+
+  bool update(UpdateRule rule) {
+    if (rule.isXmlFile()) {
+      if (rule.xmlHasKey(_xml)) {
+        // TODO: da migliorare
+        for (int x = 0; x < _data.length; x++) {
+          _data[x] = rule.update(_data[x]);
+        }
+        return false;
+      }
+      else {
+        rule.addXml(_xml);
+        return true;
+      }
+    }
+    else {
+      for (int x = 0; x < _data.length; x++) {
+        _data[x] = rule.update(_data[x]);
+      }
+      if (!rule.hasChanged()) {
+        _data.insertAll(_data.length - 2, [rule.getKey(), rule.getValue()]);
+      }
+      return false;
     }
   }
 
@@ -38,3 +75,4 @@ class FileUpdater {
     return _data.join('\n');
   }
 }
+

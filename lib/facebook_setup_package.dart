@@ -3,7 +3,7 @@ library facebook_setup_package;
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-
+import 'constants.dart';
 import 'file_updater.dart';
 import 'rules/plist.dart';
 
@@ -16,10 +16,6 @@ import 'rules/plist.dart';
 
 const String fileOption = 'file';
 const String helpFlag = 'help';
-
-const String IOS_PLIST_FILE = "ios/Runner/Info.plist";
-
-
 
 
 class Updater {
@@ -57,7 +53,7 @@ class Updater {
       File(IOS_PLIST_FILE),
       Plist(
         'FacebookDisplayName',
-        flutterIconsConfig['fb_app_mame'].toString(),
+        flutterIconsConfig['fb_app_name'].toString(),
       ),
     );
   }

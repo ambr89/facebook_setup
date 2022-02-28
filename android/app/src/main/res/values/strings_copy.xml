@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- TASK: facebook login -->
+    <string name="app_name">my_app_name</string>
+    <string name="facebook_app_id">my_id</string>
+    <string name="fb_login_protocol_scheme">my_scheme</string>
+    <!-- TASK: facebook login] -->
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+</resources>

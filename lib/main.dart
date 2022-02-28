@@ -1,7 +1,7 @@
 library package_test;
 
 import 'dart:io';
-
+import 'constants.dart';
 import 'package:args/args.dart';
 import 'package:facebook_setup_package/facebook_setup_package.dart';
 import 'package:path/path.dart' as path;
@@ -73,10 +73,10 @@ Future<void> setFacebookKeys(List<String> arguments) async {
   // Create icons
   if (!hasFlavors) {
     try {
-      createSettingFromConfig(yamlConfig);
-      stdout.writeln('\n✓ Successfully generated launcher icons');
+      await createSettingFromConfig(yamlConfig);
+      stdout.writeln('\n✓ Successfully updated facebook credentials');
     } catch (e) {
-      stderr.writeln('\n✕ Could not generate launcher icons');
+      stderr.writeln('\n✕ Could not update facebook credentials');
       stderr.writeln(e);
       exit(2);
     }
@@ -88,9 +88,9 @@ Future<void> setFacebookKeys(List<String> arguments) async {
         loadConfigFile(flavorConfigFile(flavor), flavorConfigFile(flavor));
         await createSettingFromConfig(yamlConfig, flavor);
       }
-      stdout.writeln('\n✓ Successfully generated launcher icons for flavors');
+      stdout.writeln('\n✓ Successfully updated facebook credentials for flavors');
     } catch (e) {
-      stderr.writeln('\n✕ Could not generate launcher icons for flavors');
+      stderr.writeln('\n✕ Could not update facebook credentials for flavors');
       stderr.writeln(e);
       exit(2);
     }
@@ -173,7 +173,14 @@ Future<void> createSettingFromConfig(Map<String, dynamic> config,
   }
 
   final updater = Updater();
-  await updater.updateIosApplicationIdFromConfig(config);
+  if (isNeedingNewIOS(config)) {
+    if (await plistExist()) {
+      await updater.updateIosApplicationIdFromConfig(config);
+    }
+    else {
+      throw const NoInfoPlistFileFoundException(noInfoPlistFileFoundName);
+    }
+  }
 
   stdout.writeln("------------------------------------------");
 
@@ -194,4 +201,15 @@ bool hasAndroidConfig(Map<String, dynamic> flutterLauncherIcons) {
 }
 bool hasIOSConfig(Map<String, dynamic> flutterLauncherIconsConfig) {
   return flutterLauncherIconsConfig.containsKey('ios');
+}
+
+bool isNeedingNewIOS(Map<String, dynamic> flutterLauncherIconsConfig) {
+  return hasIOSConfig(flutterLauncherIconsConfig) &&
+      flutterLauncherIconsConfig['ios'] != false;
+}
+
+Future<bool> plistExist() async {
+  var syncPath = IOS_PLIST_FILE;
+  bool exist = await File(syncPath).exists();
+  return exist;
 }
