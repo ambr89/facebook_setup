@@ -10,9 +10,14 @@ For general information about developing packages, see the Dart guide for
 and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/developing-packages). 
 -->
+# Facebook setup
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+
+A command-line tool which simplifies the task of updating your Flutter app's Facebook-Login keys. 
+Fully flexible, allowing you to choose what platform you wish to set.
+
+https://pub.dev/packages/flutter_facebook_auth
+flutter_facebook_auth
 
 ## Features
 
@@ -29,8 +34,7 @@ TODO: Include short and useful examples for package users. Add longer examples
 to `/example` folder. 
 
 ```bash
-flutter pub run bin/main -f ./test/config/test_pubspec.yaml
-flutter pub run facebook_setup_package:main -f pubspec_movs.yaml
+flutter pub run facebook_setup_package:main -f pubspec.yaml
 ```
 
 
