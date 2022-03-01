@@ -1,9 +1,9 @@
 dev_dependencies:
 
-  facebook_setup_package:
+  facebook_setup:
     path: ../../
 
-facebook_setup_package:
+facebook_setup:
   fb_app_id: "YOUR_FACEBOOK_KEY"
   fb_app_name: "YOUR_FACEBOOK_APP_NAME"
   # fb_client_token: "YOUR_CLIENT_TOKEN"

@@ -31,7 +31,7 @@ An example is shown below.
 
 ```bash
 dev_dependencies:
-  facebook_setup_package: 0.0.1
+  facebook_setup: 0.0.1
 
 facebook_setup:
   fb_app_id: "YOUR_FACEBOOK_KEY"

@@ -3,11 +3,11 @@ library package_test;
 import 'dart:io';
 import 'constants.dart';
 import 'package:args/args.dart';
-import 'package:facebook_setup_package/facebook_setup.dart';
+import 'package:facebook_setup/facebook_setup.dart';
 import 'package:path/path.dart' as path;
 import 'package:yaml/yaml.dart';
-import 'package:facebook_setup_package/custom_exceptions.dart';
-import 'package:facebook_setup_package/constants.dart';
+import 'package:facebook_setup/custom_exceptions.dart';
+import 'package:facebook_setup/constants.dart';
 
 import 'custom_exceptions.dart';
 
@@ -144,16 +144,16 @@ Map<String, dynamic> loadConfigFile(String path, String? fileOptionResult) {
   // ignore: always_specify_types
   final Map yamlMap = loadYaml(yamlString);
 
-  if ((yamlMap['facebook_setup_package'] is! Map)) {
+  if ((yamlMap['facebook_setup'] is! Map)) {
     stderr.writeln(NoConfigFoundException('Check that your config file '
         '`${fileOptionResult ?? defaultConfigFile}`'
-        ' has a `facebook_setup_package` section'));
+        ' has a `facebook_setup` section'));
     exit(1);
   }
 
   // yamlMap has the type YamlMap, which has several unwanted sideeffects
   final Map<String, dynamic> config = <String, dynamic>{};
-  for (MapEntry<dynamic, dynamic> entry in yamlMap['facebook_setup_package'].entries) {
+  for (MapEntry<dynamic, dynamic> entry in yamlMap['facebook_setup'].entries) {
     config[entry.key.toString()] = entry.value;
   }
 

@@ -1,4 +1,4 @@
-import 'package:facebook_setup_package/utils.dart';
+import 'package:facebook_setup/utils.dart';
 
 // class InvalidAndroidIconNameException implements Exception {
 //   const InvalidAndroidIconNameException([this.message]);

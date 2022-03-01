@@ -1,6 +1,6 @@
 import 'dart:io';
-import 'package:facebook_setup_package/constants.dart';
-import 'package:facebook_setup_package/main.dart' as facebook_setup;
+import 'package:facebook_setup/constants.dart';
+import 'package:facebook_setup/main.dart' as facebook_setup;
 
 void main(List<String> arguments) {
   stdout.writeln(introMessage('0.0.1'));
