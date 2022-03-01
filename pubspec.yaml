@@ -1,7 +1,7 @@
 name: facebook_setup
 description: A new Flutter package project.
-version: 0.0.1
-homepage: "PUT HOMEPAGE HERE"
+version: 0.0.2
+homepage: "https://github.com/ilDeffo/facebook_setup"
 
 environment:
   sdk: ">=2.16.0 <3.0.0"
@@ -11,7 +11,7 @@ dependencies:
 #  flutter:
 #    sdk: flutter
   args: ^2.3.0
-  path: ^1.8.1
+  path: ^1.8.0
   yaml: ^3.1.0
   xml: ^5.3.1
 
