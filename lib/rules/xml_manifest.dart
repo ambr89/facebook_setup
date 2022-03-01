@@ -68,26 +68,16 @@ class XmlManifest implements UpdateRule {
 
   @override
   bool xmlHasKey(XmlDocument document) {
-    // print("xmlHasKey in xml_manifest");
     final totalKey = document.findAllElements('meta-data');
     bool exist = false;
-    // print(totalKey);
-
     for (XmlElement elem in totalKey) {
-      // print(elem);
-
-      for (XmlAttribute attr in elem.attributes){
-        // print(attr);
-        // print(attr.name);
-        // print(key);
-        // print(attr.value == key);
+       for (XmlAttribute attr in elem.attributes){
         if (attr.value == key){
           exist = true;
           break;
         }
       }
     }
-    // print("end");
     return exist;
   }
 }

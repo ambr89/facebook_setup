@@ -20,8 +20,6 @@ class FileUpdater {
     final FileUpdater fileUpdater = await FileUpdater.fromFile(file);
 
     bool fromXml = fileUpdater.update(updateRule);
-    // print("update executed");
-    // print(fromXml);
     if (fromXml) {
       fileUpdater.toFileXml(file);
     }
@@ -43,26 +41,22 @@ class FileUpdater {
   }
 
   Future<void> toFileXml(File file) async {
-    print("tofilexml in file_updater");
     await file.writeAsString(_xml.toXmlString(pretty: true, indent: '\t'));
   }
 
   bool update(UpdateRule rule) {
     if (rule.isXmlFile()) {
       if (rule.xmlHasKey(_xml)) {
-        // print("has key xmlHasKey do update");
         // TODO: da migliorare
         rule.update(_data, _xml);
         return false;
       }
       else {
-        // print("no key xmlHasKey add");
         rule.addXml(_xml);
         return true;
       }
     }
     else {
-      // print("no xml");
       rule.update(_data, _xml);
       // for (int x = 0; x < _data.length; x++) {
       //   _data[x] = rule.update(_data[x]);

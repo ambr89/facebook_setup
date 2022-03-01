@@ -27,7 +27,6 @@ class XmlStrings implements UpdateRule {
 
   @override
   bool addXml(XmlDocument document) {
-    // print('addXml in xml_manifest');
     final builder = XmlBuilder();
     final total = document.findElements('resources');
     builder.element('string', nest: () {
