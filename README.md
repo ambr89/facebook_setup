@@ -18,8 +18,9 @@ Fully flexible, allowing you to choose what platform you wish to set.
 It's base on setting [flutter_facebook_auth documentation](https://pub.dev/packages/flutter_facebook_auth)
 
 ## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+- [x] Update android Facebook app id (into Manifest and string file)
+- [x] Update iOS Facebook app id (into Plist)
+- [ ] Update web settings
 
 
 ## Usage
