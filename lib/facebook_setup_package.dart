@@ -47,20 +47,21 @@ class Updater {
         flutterIconsConfig['fb_app_name'].toString(),
       ),
     );
-    await FileUpdater.updateFile(
-      File(ANDROID_STRING_FILE),
-      XmlStrings(
-        "facebook_app_id",
-        flutterIconsConfig['fb_app_id'].toString(),
-      ),
-    );
-    await FileUpdater.updateFile(
-      File(ANDROID_STRING_FILE),
-      XmlStrings(
-        "fb_login_protocol_scheme",
-        'fb' + flutterIconsConfig['fb_app_id'].toString(),
-      ),
-    );
+    // await FileUpdater.updateFile(
+    //   File(ANDROID_STRING_FILE),
+    //   XmlStrings(
+    //     "facebook_app_id",
+    //     flutterIconsConfig['fb_app_id'].toString(),
+    //   ),
+    // );
+    // await FileUpdater.updateFile(
+    //   File(ANDROID_STRING_FILE),
+    //   XmlStrings(
+    //     "fb_login_protocol_scheme",
+    //     'fb' + flutterIconsConfig['fb_app_id'].toString(),
+    //   ),
+    // );
+    stdout.writeln('Updated Android  application name ---- ');
   }
 
   Future<void> updateIosApplicationIdFromConfig(Map<String, dynamic> flutterIconsConfig) async {

@@ -18,11 +18,9 @@ class Plist implements UpdateRule {
         previousLineMatchedKey = true;
         changed = true;
         _data[x] = line;
-        break;
       }
       if (!previousLineMatchedKey) {
         _data[x] = line;
-        break;
       } else {
         previousLineMatchedKey = false;
         _data[x] = line.replaceAll(

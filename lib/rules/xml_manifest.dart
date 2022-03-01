@@ -14,30 +14,29 @@ class XmlManifest implements UpdateRule {
 
   @override
   bool update(List<String> _data, XmlDocument xml) {
-    for (int x = 0; x < _data.length; x++) {
-      String line = _data[x];
-      if (line.contains('<key>$key</key>')) {
-        previousLineMatchedKey = true;
-        changed = true;
-        _data[x] = line;
-        break;
-      }
-      if (!previousLineMatchedKey) {
-        _data[x] = line;
-        break;
-      } else {
-        previousLineMatchedKey = false;
-        _data[x] = line.replaceAll(
-            RegExp(r'<string>[^<]*</string>'), '<string>$value</string>');
-        break;
-      }
-    }
+    // for (int x = 0; x < _data.length; x++) {
+    //   String line = _data[x];
+    //   if (line.contains('<key>$key</key>')) {
+    //     previousLineMatchedKey = true;
+    //     changed = true;
+    //     _data[x] = line;
+    //     break;
+    //   }
+    //   if (!previousLineMatchedKey) {
+    //     _data[x] = line;
+    //     break;
+    //   } else {
+    //     previousLineMatchedKey = false;
+    //     _data[x] = line.replaceAll(
+    //         RegExp(r'<string>[^<]*</string>'), '<string>$value</string>');
+    //     break;
+    //   }
+    // }
     return true;
   }
 
   @override
   bool addXml(XmlDocument document) {
-    // print('addXml in xml_manifest');
     final builder = XmlBuilder();
     final total = document.findElements('manifest').first.findElements('application');
     builder.xml(MANIFEST_STRING);

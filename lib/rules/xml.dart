@@ -14,14 +14,25 @@ class XmlStrings implements UpdateRule {
 
   @override
   bool update(List<String> _data, XmlDocument document) {
-    for (int x = 0; x < _data.length; x++) {
-      String line = _data[x];
-      if (line.contains('<string name="$key">')) {
-        _data[x] = line.replaceAll(
-            RegExp('<string name="$key">.*</string>'), '<string name="$key">$value</string>');
-        break;
+    // print("update xml");
+    // for (int x = 0; x < _data.length; x++) {
+    //   String line = _data[x];
+    //   print(line);
+    //   if (line.contains('<string name="$key">')) {
+    //     _data[x] = line.replaceAll(
+    //         RegExp('<string name="$key">.*</string>'), '<string name="$key">$value</string>');
+    //     break;
+    //   }
+    // }
+    final totalKey = document.findAllElements('string');
+    for (XmlElement elem in totalKey) {
+      for (XmlAttribute attr in elem.attributes){
+        if (attr.value == key){
+          elem.innerText = value;
+        }
       }
     }
+    print(document);
     return true;
   }
 
