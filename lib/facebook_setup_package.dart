@@ -35,7 +35,7 @@ class Updater {
         '@string/facebook_app_id',
       ),
     );
-    stdout.writeln('Updated Android Manifest ---- ');
+    stdout.writeln('Updated Android Manifest');
   }
 
   Future<void> updateAndroidStringFromConfig(Map<String, dynamic> flutterIconsConfig) async {
@@ -61,7 +61,7 @@ class Updater {
         'fb' + flutterIconsConfig['fb_app_id'].toString(),
       ),
     );
-    stdout.writeln('Updated Android  application name ---- ');
+    stdout.writeln('Updated Android  application name');
   }
 
   Future<void> updateIosApplicationIdFromConfig(Map<String, dynamic> flutterIconsConfig) async {
@@ -80,6 +80,6 @@ class Updater {
         flutterIconsConfig['fb_app_name'].toString(),
       ),
     );
-    stdout.writeln('Updated iOS facebook id ---- ');
+    stdout.writeln('Updated iOS facebook id');
   }
 }

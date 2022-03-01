@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<!-- TASK: facebook login -->
-	<string name="app_name">YOUR_FACEBOOK_APP_NAME_deffo</string>
+	<string name="app_name">YOUR_FACEBOOK_APP_NAME</string>
 	<string name="facebook_app_id">YOUR_FACEBOOK_KEY</string>
 	<string name="fb_login_protocol_scheme">fbYOUR_FACEBOOK_KEY</string>
 	<!-- TASK: facebook login] -->

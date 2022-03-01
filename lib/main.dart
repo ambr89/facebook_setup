@@ -174,7 +174,7 @@ Future<void> createSettingFromConfig(Map<String, dynamic> config,
 
   final updater = Updater();
   if (isNeedingNewIOS(config)) {
-    print("Update IOS");
+    print("--- Updating IOS ---");
     if (await plistExist()) {
       await updater.updateIosApplicationIdFromConfig(config);
     }
@@ -183,14 +183,14 @@ Future<void> createSettingFromConfig(Map<String, dynamic> config,
     }
   }
   if (isNeedingNewAndroid(config)) {
-    print("Update Android");
+    print("--- Updating Android Manifest ---");
     if (await manifestExist()) {
       await updater.updateAndroidManifestFromConfig(config);
     }
     else {
       throw const NoManifestFileFoundException(noManifestFileFoundName);
     }
-    print("Update String");
+    print("--- Updating Android Strings ---");
     if (await xmlStringExist()) {
       await updater.updateAndroidStringFromConfig(config);
     }
