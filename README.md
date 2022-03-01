@@ -12,35 +12,38 @@ and the Flutter guide for
 -->
 # Facebook setup
 
-
 A command-line tool which simplifies the task of updating your Flutter app's Facebook-Login keys. 
 Fully flexible, allowing you to choose what platform you wish to set.
 
-https://pub.dev/packages/flutter_facebook_auth
-flutter_facebook_auth
+It's base on setting [flutter_facebook_auth documentation](https://pub.dev/packages/flutter_facebook_auth)
 
 ## Features
 
 TODO: List what your package can do. Maybe include images, gifs, or videos.
 
-## Getting started
-
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+### Setup the config file
+Add your Facebook Setup configuration to your pubspec.yaml or create a new config file called facebook_setup.yaml. 
+An example is shown below. 
 
 ```bash
-flutter pub run facebook_setup_package:main -f pubspec.yaml
+dev_dependencies:
+  facebook_setup_package: 0.0.1
+
+facebook_setup:
+  fb_app_id: "YOUR_FACEBOOK_KEY"
+  fb_app_name: "YOUR_FACEBOOK_APP_NAME"
+  android: true # set true if android platform is present in your project and you want set/add keys, false in other case
+  ios: true # set true if iOS platform is present in your project and you want set/add keys, false in other case
 ```
 
+### Run the package
+After setting up the configuration, all that is left to do is run the package.
 
-## Additional information
-
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+```bash
+flutter pub get
+flutter pub run facebook_setup:main -f facebook_setup.yaml
+```
 
