@@ -20,7 +20,7 @@ class FileUpdater {
     final FileUpdater fileUpdater = await FileUpdater.fromFile(file);
 
     bool fromXml = fileUpdater.update(updateRule);
-    print(fromXml);
+    print("fromXml  " + fromXml.toString());
     if (fromXml) {
       fileUpdater.toFileXml(file);
     }
@@ -51,8 +51,7 @@ class FileUpdater {
   bool update(UpdateRule rule) {
     if (rule.isXmlFile()) {
       if (rule.xmlHasKey(_xml)) {
-        rule.update(_data, _xml);
-        return false;
+        return rule.update(_data, _xml);
       }
       else {
         rule.addXml(_xml);
