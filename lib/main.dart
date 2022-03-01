@@ -3,7 +3,7 @@ library package_test;
 import 'dart:io';
 import 'constants.dart';
 import 'package:args/args.dart';
-import 'package:facebook_setup_package/facebook_setup_package.dart';
+import 'package:facebook_setup_package/facebook_setup.dart';
 import 'package:path/path.dart' as path;
 import 'package:yaml/yaml.dart';
 import 'package:facebook_setup_package/custom_exceptions.dart';
