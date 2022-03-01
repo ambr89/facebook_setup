@@ -181,6 +181,22 @@ Future<void> createSettingFromConfig(Map<String, dynamic> config,
       throw const NoInfoPlistFileFoundException(noInfoPlistFileFoundName);
     }
   }
+  if (isNeedingNewAndroid(config)) {
+    print("update android");
+    if (await manifestExist()) {
+      await updater.updateAndroidManifestFromConfig(config);
+    }
+    else {
+      throw const NoManifestFileFoundException(noManifestFileFoundName);
+    }
+    print("update string");
+    if (await xmlStringExist()) {
+      await updater.updateAndroidStringFromConfig(config);
+    }
+    else {
+      throw const NoAndroidStringFileFoundException(noAndroidStringFileFoundName);
+    }
+  }
 
   stdout.writeln("------------------------------------------");
 
@@ -208,8 +224,25 @@ bool isNeedingNewIOS(Map<String, dynamic> flutterLauncherIconsConfig) {
       flutterLauncherIconsConfig['ios'] != false;
 }
 
+bool isNeedingNewAndroid(Map<String, dynamic> flutterLauncherIconsConfig) {
+  return hasAndroidConfig(flutterLauncherIconsConfig) &&
+      flutterLauncherIconsConfig['android'] != false;
+}
+
 Future<bool> plistExist() async {
   var syncPath = IOS_PLIST_FILE;
+  bool exist = await File(syncPath).exists();
+  return exist;
+}
+
+Future<bool> manifestExist() async {
+  var syncPath = ANDROID_MANIFEST_FILE;
+  bool exist = await File(syncPath).exists();
+  return exist;
+}
+
+Future<bool> xmlStringExist() async {
+  var syncPath = ANDROID_STRING_FILE;
   bool exist = await File(syncPath).exists();
   return exist;
 }

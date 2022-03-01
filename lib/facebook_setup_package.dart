@@ -3,6 +3,9 @@ library facebook_setup_package;
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:facebook_setup_package/rules/xml.dart';
+import 'package:facebook_setup_package/rules/xml_manifest.dart';
+
 import 'constants.dart';
 import 'file_updater.dart';
 import 'rules/plist.dart';
@@ -29,19 +32,31 @@ class Updater {
   }
 
 
-// Future<void> updateAndroidApplicationIdFromConfig(context) async {
-//   stdout.writeln('Updating Android application name');
-//   FileUpdater.updateFile(
-//     File(ANDROID_MANIFEST_FILE),
-//     XmlAttribute(
-//       ANDROID_APPNAME_KEY,
-//       config.android!.name!,
-//     ),
-//   );
-// }
+  Future<void> updateAndroidManifestFromConfig(context) async {
+    stdout.writeln('Updating Android Manifest');
+    await FileUpdater.updateFile(
+      File(ANDROID_MANIFEST_FILE),
+      XmlManifest(
+        'com.facebook.sdk.ApplicationId',
+        '@string/facebook_app_id',
+      ),
+    );
+    stdout.writeln('Updated Android Manifest ---- ');
+  }
+
+  Future<void> updateAndroidStringFromConfig(context) async {
+    stdout.writeln('Updating Android application name');
+    await FileUpdater.updateFile(
+      File(ANDROID_STRING_FILE),
+      XmlAttribute(
+        'com.facebook.sdk.ApplicationId',
+        '@string/facebook_app_id',
+      ),
+    );
+  }
 
   Future<void> updateIosApplicationIdFromConfig(Map<String, dynamic> flutterIconsConfig) async {
-    stdout.writeln('Updating iOS application name');
+    stdout.writeln('Updating iOS facebook id');
     await FileUpdater.updateFile(
       File(IOS_PLIST_FILE),
       Plist(
@@ -56,5 +71,6 @@ class Updater {
         flutterIconsConfig['fb_app_name'].toString(),
       ),
     );
+    stdout.writeln('Updated iOS facebook id ---- ');
   }
 }

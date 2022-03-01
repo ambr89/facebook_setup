@@ -118,9 +118,9 @@
 		<false/>
 		<key>io.flutter.embedded_views_preview</key>
 		<string>YES</string>
-		<prova>FacebookAppID</prova>
-		<prova2>YOUR_FACEBOOK_KEY</prova2>
-		<prova>FacebookDisplayName</prova>
-		<prova2>YOUR_FACEBOOK_APP_NAME</prova2>
+		<key>FacebookAppID</key>
+		<string>YOUR_FACEBOOK_KEY</string>
+		<key>FacebookDisplayName</key>
+		<string>YOUR_FACEBOOK_APP_NAME</string>
 	</dict>
 </plist>

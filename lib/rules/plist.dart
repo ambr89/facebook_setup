@@ -11,25 +11,26 @@ class Plist implements UpdateRule {
   bool changed = false;
 
   @override
-  String update(String line) {
-    if (line.contains('<key>$key</key>')) {
-      previousLineMatchedKey = true;
-      changed = true;
-      return line;
+  bool update(List<String> _data, XmlDocument xml) {
+    for (int x = 0; x < _data.length; x++) {
+      String line = _data[x];
+      if (line.contains('<key>$key</key>')) {
+        previousLineMatchedKey = true;
+        changed = true;
+        _data[x] = line;
+        break;
+      }
+      if (!previousLineMatchedKey) {
+        _data[x] = line;
+        break;
+      } else {
+        previousLineMatchedKey = false;
+        _data[x] = line.replaceAll(
+            RegExp(r'<string>[^<]*</string>'), '<string>$value</string>');
+        break;
+      }
     }
-
-    if (!previousLineMatchedKey) {
-      return line;
-    } else {
-      previousLineMatchedKey = false;
-      return line.replaceAll(
-          RegExp(r'<string>[^<]*</string>'), '<string>$value</string>');
-    }
-  }
-
-  @override
-  bool updateXml(String line) {
-    return false;
+    return true;
   }
 
   @override

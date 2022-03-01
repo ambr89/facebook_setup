@@ -1,9 +1,11 @@
 import 'package:xml/src/xml/nodes/document.dart';
+import 'package:xml/xml.dart';
 
+import '../constants.dart';
 import '../file_updater.dart';
 
-class XmlAttribute implements UpdateRule {
-  XmlAttribute(this.key, this.value);
+class XmlManifest implements UpdateRule {
+  XmlManifest(this.key, this.value);
 
   final String key;
   final String value;
@@ -12,6 +14,7 @@ class XmlAttribute implements UpdateRule {
 
   @override
   bool update(List<String> _data, XmlDocument xml) {
+    
     for (int x = 0; x < _data.length; x++) {
       String line = _data[x];
       if (line.contains('<key>$key</key>')) {
@@ -31,13 +34,15 @@ class XmlAttribute implements UpdateRule {
       }
     }
     return true;
-    // return line.replaceAllMapped(RegExp('($key[ ]*=[ ]*)"[a-zA-Z-_0-9.]*"'),
-    //     (Match match) => '${match[1]}"$value"');
-    return true;
   }
 
   @override
   bool addXml(XmlDocument document) {
+    print('addXml in xml_manifest');
+    final builder = XmlBuilder();
+    final total = document.findElements('manifest').first.findElements('application');
+    builder.xml(MANIFEST_STRING);
+    total.first.children.add(builder.buildFragment());
     return true;
   }
 
@@ -64,6 +69,26 @@ class XmlAttribute implements UpdateRule {
 
   @override
   bool xmlHasKey(XmlDocument document) {
-    return true;
+    // print("xmlHasKey in xml_manifest");
+    final totalKey = document.findAllElements('meta-data');
+    bool exist = false;
+    // print(totalKey);
+
+    for (XmlElement elem in totalKey) {
+      // print(elem);
+
+      for (XmlAttribute attr in elem.attributes){
+        // print(attr);
+        // print(attr.name);
+        // print(key);
+        // print(attr.value == key);
+        if (attr.value == key){
+          exist = true;
+          break;
+        }
+      }
+    }
+    // print("end");
+    return exist;
   }
 }

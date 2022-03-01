@@ -1,10 +1,8 @@
 import 'dart:io';
-
 import 'package:xml/xml.dart';
 
 class UpdateRule {
-  String update(String line) => line;
-  bool updateXml(String line) => false;
+  bool update(List<String> _data, XmlDocument document) => false;
   bool hasChanged() => true;
   String getKey() => '';
   String getValue() => '';
@@ -20,7 +18,10 @@ class FileUpdater {
 
   static Future<void> updateFile(File file, UpdateRule updateRule) async {
     final FileUpdater fileUpdater = await FileUpdater.fromFile(file);
+
     bool fromXml = fileUpdater.update(updateRule);
+    print("update executed");
+    print(fromXml);
     if (fromXml) {
       fileUpdater.toFileXml(file);
     }
@@ -42,27 +43,30 @@ class FileUpdater {
   }
 
   Future<void> toFileXml(File file) async {
+    print("tofilexml in file_updater");
     await file.writeAsString(_xml.toXmlString(pretty: true, indent: '\t'));
   }
 
   bool update(UpdateRule rule) {
     if (rule.isXmlFile()) {
       if (rule.xmlHasKey(_xml)) {
+        print("has key xmlHasKey do update");
         // TODO: da migliorare
-        for (int x = 0; x < _data.length; x++) {
-          _data[x] = rule.update(_data[x]);
-        }
+        rule.update(_data, _xml);
         return false;
       }
       else {
+        print("no key xmlHasKey add");
         rule.addXml(_xml);
         return true;
       }
     }
     else {
-      for (int x = 0; x < _data.length; x++) {
-        _data[x] = rule.update(_data[x]);
-      }
+      print("no xml");
+      rule.update(_data, _xml);
+      // for (int x = 0; x < _data.length; x++) {
+      //   _data[x] = rule.update(_data[x]);
+      // }
       if (!rule.hasChanged()) {
         _data.insertAll(_data.length - 2, [rule.getKey(), rule.getValue()]);
       }

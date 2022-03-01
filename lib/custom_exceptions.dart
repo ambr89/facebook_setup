@@ -50,3 +50,23 @@ class NoInfoPlistFileFoundException implements Exception {
     return generateError(this, message);
   }
 }
+
+class NoManifestFileFoundException implements Exception {
+  const NoManifestFileFoundException([this.message]);
+  final String? message;
+
+  @override
+  String toString() {
+    return generateError(this, message);
+  }
+}
+
+class NoAndroidStringFileFoundException implements Exception {
+  const NoAndroidStringFileFoundException([this.message]);
+  final String? message;
+
+  @override
+  String toString() {
+    return generateError(this, message);
+  }
+}
