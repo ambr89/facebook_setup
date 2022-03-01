@@ -14,7 +14,6 @@ class XmlManifest implements UpdateRule {
 
   @override
   bool update(List<String> _data, XmlDocument xml) {
-    
     for (int x = 0; x < _data.length; x++) {
       String line = _data[x];
       if (line.contains('<key>$key</key>')) {
@@ -38,7 +37,7 @@ class XmlManifest implements UpdateRule {
 
   @override
   bool addXml(XmlDocument document) {
-    print('addXml in xml_manifest');
+    // print('addXml in xml_manifest');
     final builder = XmlBuilder();
     final total = document.findElements('manifest').first.findElements('application');
     builder.xml(MANIFEST_STRING);

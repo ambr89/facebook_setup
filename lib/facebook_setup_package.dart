@@ -44,13 +44,27 @@ class Updater {
     stdout.writeln('Updated Android Manifest ---- ');
   }
 
-  Future<void> updateAndroidStringFromConfig(context) async {
+  Future<void> updateAndroidStringFromConfig(Map<String, dynamic> flutterIconsConfig) async {
     stdout.writeln('Updating Android application name');
     await FileUpdater.updateFile(
       File(ANDROID_STRING_FILE),
-      XmlAttribute(
-        'com.facebook.sdk.ApplicationId',
-        '@string/facebook_app_id',
+      XmlStrings(
+        "app_name",
+        flutterIconsConfig['fb_app_name'].toString(),
+      ),
+    );
+    await FileUpdater.updateFile(
+      File(ANDROID_STRING_FILE),
+      XmlStrings(
+        "facebook_app_id",
+        flutterIconsConfig['fb_app_id'].toString(),
+      ),
+    );
+    await FileUpdater.updateFile(
+      File(ANDROID_STRING_FILE),
+      XmlStrings(
+        "fb_login_protocol_scheme",
+        'fb' + flutterIconsConfig['fb_app_id'].toString(),
       ),
     );
   }

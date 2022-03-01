@@ -1,9 +1,11 @@
 import 'package:xml/src/xml/nodes/document.dart';
+import 'package:xml/xml.dart';
 
+import '../constants.dart';
 import '../file_updater.dart';
 
-class XmlAttribute implements UpdateRule {
-  XmlAttribute(this.key, this.value);
+class XmlStrings implements UpdateRule {
+  XmlStrings(this.key, this.value);
 
   final String key;
   final String value;
@@ -11,33 +13,28 @@ class XmlAttribute implements UpdateRule {
   bool changed = false;
 
   @override
-  bool update(List<String> _data, XmlDocument xml) {
+  bool update(List<String> _data, XmlDocument document) {
     for (int x = 0; x < _data.length; x++) {
       String line = _data[x];
-      if (line.contains('<key>$key</key>')) {
-        previousLineMatchedKey = true;
-        changed = true;
-        _data[x] = line;
-        break;
-      }
-      if (!previousLineMatchedKey) {
-        _data[x] = line;
-        break;
-      } else {
-        previousLineMatchedKey = false;
+      if (line.contains('<string name="$key">')) {
         _data[x] = line.replaceAll(
-            RegExp(r'<string>[^<]*</string>'), '<string>$value</string>');
+            RegExp('<string name="$key">.*</string>'), '<string name="$key">$value</string>');
         break;
       }
     }
-    return true;
-    // return line.replaceAllMapped(RegExp('($key[ ]*=[ ]*)"[a-zA-Z-_0-9.]*"'),
-    //     (Match match) => '${match[1]}"$value"');
     return true;
   }
 
   @override
   bool addXml(XmlDocument document) {
+    // print('addXml in xml_manifest');
+    final builder = XmlBuilder();
+    final total = document.findElements('resources');
+    builder.element('string', nest: () {
+      builder.attribute('name', key);
+      builder.text(value);
+    });
+    total.first.children.add(builder.buildFragment());
     return true;
   }
 
@@ -64,6 +61,16 @@ class XmlAttribute implements UpdateRule {
 
   @override
   bool xmlHasKey(XmlDocument document) {
-    return true;
+    final totalKey = document.findAllElements('string');
+    bool exist = false;
+    for (XmlElement elem in totalKey) {
+      for (XmlAttribute attr in elem.attributes){
+        if (attr.value == key){
+          exist = true;
+          break;
+        }
+      }
+    }
+    return exist;
   }
 }
