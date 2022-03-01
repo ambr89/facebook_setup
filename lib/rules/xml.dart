@@ -32,7 +32,6 @@ class XmlStrings implements UpdateRule {
         }
       }
     }
-    print(document);
     return true;
   }
 
