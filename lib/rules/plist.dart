@@ -11,24 +11,24 @@ class Plist implements UpdateRule {
   bool changed = false;
 
   @override
-  bool update(List<String> _data, XmlDocument xml) {
+  bool update(List<String> _data, XmlDocument document) {
     for (int x = 0; x < _data.length; x++) {
       String line = _data[x];
       if (line.contains('<key>$key</key>')) {
         previousLineMatchedKey = true;
-        changed = true;
-        _data[x] = line;
+        continue;
       }
       if (!previousLineMatchedKey) {
         _data[x] = line;
       } else {
+        changed = true;
         previousLineMatchedKey = false;
         _data[x] = line.replaceAll(
             RegExp(r'<string>[^<]*</string>'), '<string>$value</string>');
         break;
       }
     }
-    return true;
+    return false;
   }
 
   @override

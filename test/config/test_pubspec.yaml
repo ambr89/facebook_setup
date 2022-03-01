@@ -5,7 +5,7 @@ dev_dependencies:
 
 facebook_setup_package:
   fb_app_id: "YOUR_FACEBOOK_KEY"
-  fb_app_name: "YOUR_FACEBOOK_APP_NAME_p"
+  fb_app_name: "YOUR_FACEBOOK_APP_NAME"
   # fb_client_token: "YOUR_CLIENT_TOKEN"
   android: true # can specify file name here e.g. "ic_launcher"
   ios: true # can specify file name here e.g. "My-Launcher-Icon"

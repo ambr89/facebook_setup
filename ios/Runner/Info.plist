@@ -121,6 +121,6 @@
 		<key>FacebookAppID</key>
 		<string>YOUR_FACEBOOK_KEY</string>
 		<key>FacebookDisplayName</key>
-		<string>YOUR_FACEBOOK_APP_NAME</string>
+		<string>YOUR_FACEBOOK_APP_NAME_deffo</string>
 	</dict>
 </plist>
