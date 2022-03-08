@@ -38,7 +38,6 @@ class Plist implements UpdateRule {
     for (int x = 0; x < _data.length; x++) {
       String line = _data[x];
       if (reg.hasMatch(line)) {
-        print("contains");
         _data[x] = line.replaceAll(
             RegExp(r'<string>[^<]*</string>'), '<string>$value</string>');
         break;
