@@ -1,4 +1,3 @@
-import 'package:xml/src/xml/nodes/document.dart';
 import 'package:xml/xml.dart';
 
 import '../constants.dart';

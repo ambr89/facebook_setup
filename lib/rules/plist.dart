@@ -36,14 +36,17 @@ class Plist implements UpdateRule {
     return changed;
   }
 
+  @override
   String getKey(){
     return '        <key>$key</key>';
   }
 
+  @override
   String getValue(){
     return '        <string>$value</string>';
   }
 
+  @override
   bool xmlHasKey(XmlDocument document) {
     final totalKey = document.findAllElements('key');
     bool exist = false;
@@ -61,6 +64,7 @@ class Plist implements UpdateRule {
     return true;
   }
 
+  @override
   bool addXml(XmlDocument document) {
     final builder = XmlBuilder();
     final total = document.findElements('plist').first.findElements('dict');

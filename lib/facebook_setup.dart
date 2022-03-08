@@ -1,7 +1,6 @@
 library facebook_setup;
 
 import 'dart:async';
-import 'dart:convert';
 import 'dart:io';
 import 'package:facebook_setup/rules/xml.dart';
 import 'package:facebook_setup/rules/xml_manifest.dart';
