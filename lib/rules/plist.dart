@@ -38,7 +38,6 @@ class Plist implements UpdateRule {
       String line = _data[x];
       var reg = RegExp('<string>fb[0-9]+</string>');
       if (reg.hasMatch(line)) {
-        print("contains");
         _data[x] = line.replaceAll(
             RegExp(r'<string>[^<]*</string>'), '<string>$value</string>');
         break;
