@@ -76,4 +76,18 @@ class XmlStrings implements UpdateRule {
     // TODO: implement updateArray
     throw UnimplementedError();
   }
+
+  @override
+  bool xmlHasKeyArray(XmlDocument document) {
+    // TODO: implement xmlHasKeyArray
+    throw UnimplementedError();
+  }
+
+  @override
+  bool addBundleURLSchemes(XmlDocument document) {
+    // TODO: implement addFbBundle
+    throw UnimplementedError();
+  }
+  
+  
 }

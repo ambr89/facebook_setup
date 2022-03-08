@@ -9,7 +9,9 @@ class UpdateRule {
   String getValue() => '';
   bool isXmlFile() => true;
   bool xmlHasKey(XmlDocument document) => false;
+  bool xmlHasKeyArray(XmlDocument document) => false;
   bool addXml(XmlDocument document) => false;
+  bool addBundleURLSchemes(XmlDocument document) => false;
 }
 
 class FileUpdater {
@@ -29,7 +31,7 @@ class FileUpdater {
     }
   }
 
-  static Future<void> updateIosBundle(File file, UpdateRule updateRule) async {
+  static Future<void> updateIosBundleURL(File file, UpdateRule updateRule) async {
     final FileUpdater fileUpdater = await FileUpdater.fromFile(file);
 
     bool fromXml = fileUpdater.updateFbBundle(updateRule);
@@ -80,17 +82,16 @@ class FileUpdater {
   }
 
   bool updateFbBundle(UpdateRule rule){
-    // if (rule.isXmlFile()) {
-    //   if (rule.xmlHasKey(_xml)) {
-    //     return rule.updateFbBundle(_data, _xml);
-    //   }
-    //   else {
-    //     rule.addXml(_xml);
-    //     return true;
-    //   }
-    // }
-    // return false;
-    return rule.updateFbBundle(_data, _xml);
+    if (rule.isXmlFile()) {
+      if (rule.xmlHasKeyArray(_xml)) {
+        return rule.updateFbBundle(_data, _xml);
+      }
+      else {
+        rule.addBundleURLSchemes(_xml);
+        return true;
+      }
+    }
+    return false;
   }
 
   @override

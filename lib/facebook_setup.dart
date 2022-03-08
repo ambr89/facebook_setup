@@ -79,7 +79,7 @@ class Updater {
         flutterIconsConfig['fb_app_name'].toString(),
       ),
     );
-    await FileUpdater.updateIosBundle(
+    await FileUpdater.updateIosBundleURL(
       File(IOS_PLIST_FILE),
       Plist(
         '',

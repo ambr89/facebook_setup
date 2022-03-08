@@ -1,3 +1,7 @@
+[0.0.4] - 2022-03-08
+Changed
+    Add if not exist BundleUrlSchemes on Info.plist
+
 [0.0.3] - 2022-03-08
 Added
     Update BundleUrlSchemes on Info.plist
