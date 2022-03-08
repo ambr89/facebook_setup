@@ -135,7 +135,7 @@ class Plist implements UpdateRule {
           });
           });
         });
-      arrElement!.children.add(builderDict.buildFragment());
+      arrElement.children.add(builderDict.buildFragment());
     }
     return true;
   }
