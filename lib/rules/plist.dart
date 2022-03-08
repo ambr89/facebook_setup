@@ -36,10 +36,12 @@ class Plist implements UpdateRule {
   bool updateFbBundle(List<String> _data, XmlDocument document) {
     for (int x = 0; x < _data.length; x++) {
       String line = _data[x];
-      if (line.contains('<string>fb\^[0-9]*\$</string>')) {
+      var reg = RegExp('<string>fb[0-9]+</string>');
+      if (reg.hasMatch(line)) {
+        print("contains");
         _data[x] = line.replaceAll(
             RegExp(r'<string>[^<]*</string>'), '<string>$value</string>');
-        return true;
+        break;
       }
     }
     return false;
