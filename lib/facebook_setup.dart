@@ -79,6 +79,13 @@ class Updater {
         flutterIconsConfig['fb_app_name'].toString(),
       ),
     );
+    await FileUpdater.updateIosBundle(
+      File(IOS_PLIST_FILE),
+      Plist(
+        '',
+        'fb' + flutterIconsConfig['fb_app_id'].toString(),
+      ),
+    );
     stdout.writeln('Updated iOS facebook id');
   }
 }

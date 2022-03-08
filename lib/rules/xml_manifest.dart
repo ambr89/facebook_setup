@@ -78,4 +78,10 @@ class XmlManifest implements UpdateRule {
     }
     return exist;
   }
+
+  @override
+  bool updateFbBundle(List<String> _data, XmlDocument document) {
+    // TODO: implement updateArray
+    throw UnimplementedError();
+  }
 }

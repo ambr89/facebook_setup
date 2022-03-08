@@ -3,6 +3,7 @@ import 'package:xml/xml.dart';
 
 class UpdateRule {
   bool update(List<String> _data, XmlDocument document) => false;
+  bool updateFbBundle(List<String> _data, XmlDocument document) => false;
   bool hasChanged() => true;
   String getKey() => '';
   String getValue() => '';
@@ -20,6 +21,18 @@ class FileUpdater {
     final FileUpdater fileUpdater = await FileUpdater.fromFile(file);
 
     bool fromXml = fileUpdater.update(updateRule);
+    if (fromXml) {
+      fileUpdater.toFileXml(file);
+    }
+    else {
+      fileUpdater.toFile(file);
+    }
+  }
+
+  static Future<void> updateIosBundle(File file, UpdateRule updateRule) async {
+    final FileUpdater fileUpdater = await FileUpdater.fromFile(file);
+
+    bool fromXml = fileUpdater.updateFbBundle(updateRule);
     if (fromXml) {
       fileUpdater.toFileXml(file);
     }
@@ -64,6 +77,20 @@ class FileUpdater {
       }
       return false;
     }
+  }
+
+  bool updateFbBundle(UpdateRule rule){
+    // if (rule.isXmlFile()) {
+    //   if (rule.xmlHasKey(_xml)) {
+    //     return rule.updateFbBundle(_data, _xml);
+    //   }
+    //   else {
+    //     rule.addXml(_xml);
+    //     return true;
+    //   }
+    // }
+    // return false;
+    return rule.updateFbBundle(_data, _xml);
   }
 
   @override

@@ -8,6 +8,7 @@ class Plist implements UpdateRule {
   final String key;
   final String value;
   bool previousLineMatchedKey = false;
+  bool containsArray = false;
   bool changed = false;
 
   @override
@@ -26,6 +27,19 @@ class Plist implements UpdateRule {
         _data[x] = line.replaceAll(
             RegExp(r'<string>[^<]*</string>'), '<string>$value</string>');
         break;
+      }
+    }
+    return false;
+  }
+
+  @override
+  bool updateFbBundle(List<String> _data, XmlDocument document) {
+    for (int x = 0; x < _data.length; x++) {
+      String line = _data[x];
+      if (line.contains('<string>fb\^[0-9]*\$</string>')) {
+        _data[x] = line.replaceAll(
+            RegExp(r'<string>[^<]*</string>'), '<string>$value</string>');
+        return true;
       }
     }
     return false;
