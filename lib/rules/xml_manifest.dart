@@ -37,7 +37,8 @@ class XmlManifest implements UpdateRule {
   @override
   bool addXml(XmlDocument document) {
     final builder = XmlBuilder();
-    final total = document.findElements('manifest').first.findElements('application');
+    final total =
+        document.findElements('manifest').first.findElements('application');
     builder.xml(MANIFEST_STRING);
     total.first.children.add(builder.buildFragment());
     return true;
@@ -63,14 +64,13 @@ class XmlManifest implements UpdateRule {
     return true;
   }
 
-
   @override
   bool xmlHasKey(XmlDocument document) {
     final totalKey = document.findAllElements('meta-data');
     bool exist = false;
     for (XmlElement elem in totalKey) {
-       for (XmlAttribute attr in elem.attributes){
-        if (attr.value == key){
+      for (XmlAttribute attr in elem.attributes) {
+        if (attr.value == key) {
           exist = true;
           break;
         }

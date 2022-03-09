@@ -52,12 +52,12 @@ class Plist implements UpdateRule {
   }
 
   @override
-  String getKey(){
+  String getKey() {
     return '        <key>$key</key>';
   }
 
   @override
-  String getValue(){
+  String getValue() {
     return '        <string>$value</string>';
   }
 
@@ -66,7 +66,7 @@ class Plist implements UpdateRule {
     final totalKey = document.findAllElements('key');
     bool exist = false;
     for (XmlElement elem in totalKey) {
-      if (elem.text == key){
+      if (elem.text == key) {
         exist = true;
         break;
       }
@@ -80,10 +80,14 @@ class Plist implements UpdateRule {
     bool exist = false;
     var reg = RegExp('fb[0-9]+');
     for (XmlElement elem in totalKey) {
-      if (elem.text == 'CFBundleURLSchemes'){
+      if (elem.text == 'CFBundleURLSchemes') {
         var parent = elem.ancestorElements.first;
-        var arrStr = parent.findAllElements("array").first.findAllElements("string").first;
-        if (reg.hasMatch(arrStr.text)){
+        var arrStr = parent
+            .findAllElements("array")
+            .first
+            .findAllElements("string")
+            .first;
+        if (reg.hasMatch(arrStr.text)) {
           exist = true;
         }
         break;
@@ -111,30 +115,30 @@ class Plist implements UpdateRule {
   @override
   bool addBundleURLSchemes(XmlDocument document) {
     final builderDict = XmlBuilder();
-    final total = document.findElements('plist').first.findElements('dict').first;
+    final total =
+        document.findElements('plist').first.findElements('dict').first;
     final keys = total.findElements('key');
     bool existExternalNode = false;
     XmlElement? externalElement;
-    for(XmlElement k in keys){
-      if (k.text == "CFBundleURLTypes"){
+    for (XmlElement k in keys) {
+      if (k.text == "CFBundleURLTypes") {
         existExternalNode = true;
         externalElement = k;
       }
     }
-    if(existExternalNode){
+    if (existExternalNode) {
       var nexnode = externalElement!.following;
       var arrElement = nexnode.first.followingElements.first;
-      builderDict.element('dict', nest: (){
+      builderDict.element('dict', nest: () {
         builderDict.element('key', nest: () {
           builderDict.text('CFBundleURLSchemes');
         });
         builderDict.element('array', nest: () {
-          builderDict.element('string', nest: ()
-          {
+          builderDict.element('string', nest: () {
             builderDict.text(value);
           });
-          });
         });
+      });
       arrElement.children.add(builderDict.buildFragment());
     }
     return true;

@@ -21,8 +21,6 @@ import 'custom_exceptions.dart';
 //
 // // end region test
 
-
-
 const String helpFlag = 'help';
 const String fileOption = 'file';
 const String defaultConfigFile = 'package_test.yaml';
@@ -44,7 +42,6 @@ List<String> getFlavors() {
 }
 
 Future<void> setFacebookKeys(List<String> arguments) async {
-
   final ArgParser parser = ArgParser(allowTrailingOptions: true);
   parser.addFlag(helpFlag, abbr: 'h', help: 'Usage help', negatable: false);
   // Make default null to differentiate when it is explicitly set
@@ -64,7 +61,7 @@ Future<void> setFacebookKeys(List<String> arguments) async {
 
   // Load the config file
   final Map<String, dynamic>? yamlConfig =
-  loadConfigFileFromArgResults(argResults, verbose: true);
+      loadConfigFileFromArgResults(argResults, verbose: true);
 
   if (yamlConfig == null) {
     throw const NoConfigFoundException();
@@ -85,19 +82,18 @@ Future<void> setFacebookKeys(List<String> arguments) async {
       for (String flavor in flavors) {
         stdout.writeln('\nFlavor: $flavor');
         final Map<String, dynamic> yamlConfig =
-        loadConfigFile(flavorConfigFile(flavor), flavorConfigFile(flavor));
+            loadConfigFile(flavorConfigFile(flavor), flavorConfigFile(flavor));
         await createSettingFromConfig(yamlConfig, flavor);
       }
-      stdout.writeln('\n✓ Successfully updated facebook credentials for flavors');
+      stdout
+          .writeln('\n✓ Successfully updated facebook credentials for flavors');
     } catch (e) {
       stderr.writeln('\n✕ Could not update facebook credentials for flavors');
       stderr.writeln(e);
       exit(2);
     }
   }
-
 }
-
 
 Map<String, dynamic>? loadConfigFileFromArgResults(ArgResults argResults,
     {bool verbose = false}) {
@@ -160,10 +156,8 @@ Map<String, dynamic> loadConfigFile(String path, String? fileOptionResult) {
   return config;
 }
 
-
 Future<void> createSettingFromConfig(Map<String, dynamic> config,
     [String? flavor]) async {
-
   if (!isFbKeyInConfig(config)) {
     throw const InvalidConfigException(errorMissingFbKey);
   }
@@ -177,8 +171,7 @@ Future<void> createSettingFromConfig(Map<String, dynamic> config,
     stdout.writeln("--- Updating IOS ---");
     if (await plistExist()) {
       await updater.updateIosApplicationIdFromConfig(config);
-    }
-    else {
+    } else {
       throw const NoInfoPlistFileFoundException(noInfoPlistFileFoundName);
     }
   }
@@ -186,48 +179,43 @@ Future<void> createSettingFromConfig(Map<String, dynamic> config,
     stdout.writeln("--- Updating Android Manifest ---");
     if (await manifestExist()) {
       await updater.updateAndroidManifestFromConfig(config);
-    }
-    else {
+    } else {
       throw const NoManifestFileFoundException(noManifestFileFoundName);
     }
     stdout.writeln("--- Updating Android Strings ---");
     if (await xmlStringExist()) {
       await updater.updateAndroidStringFromConfig(config);
-    }
-    else {
-      throw const NoAndroidStringFileFoundException(noAndroidStringFileFoundName);
+    } else {
+      throw const NoAndroidStringFileFoundException(
+          noAndroidStringFileFoundName);
     }
   }
 
   stdout.writeln("------------------------------------------");
-
 }
 
-
-bool isFbKeyInConfig(Map<String, dynamic> flutterIconsConfig) {
-  return flutterIconsConfig.containsKey('fb_app_id')
-      && flutterIconsConfig.containsKey('fb_app_name');
+bool isFbKeyInConfig(Map<String, dynamic> config) {
+  return config.containsKey('fb_app_id') && config.containsKey('fb_app_name');
 }
 
-bool hasPlatformConfig(Map<String, dynamic> flutterIconsConfig) {
-  return hasAndroidConfig(flutterIconsConfig) ||
-      hasIOSConfig(flutterIconsConfig);
-}
-bool hasAndroidConfig(Map<String, dynamic> flutterLauncherIcons) {
-  return flutterLauncherIcons.containsKey('android');
-}
-bool hasIOSConfig(Map<String, dynamic> flutterLauncherIconsConfig) {
-  return flutterLauncherIconsConfig.containsKey('ios');
+bool hasPlatformConfig(Map<String, dynamic> config) {
+  return hasAndroidConfig(config) || hasIOSConfig(config);
 }
 
-bool isNeedingNewIOS(Map<String, dynamic> flutterLauncherIconsConfig) {
-  return hasIOSConfig(flutterLauncherIconsConfig) &&
-      flutterLauncherIconsConfig['ios'] != false;
+bool hasAndroidConfig(Map<String, dynamic> config) {
+  return config.containsKey('android');
 }
 
-bool isNeedingNewAndroid(Map<String, dynamic> flutterLauncherIconsConfig) {
-  return hasAndroidConfig(flutterLauncherIconsConfig) &&
-      flutterLauncherIconsConfig['android'] != false;
+bool hasIOSConfig(Map<String, dynamic> config) {
+  return config.containsKey('ios');
+}
+
+bool isNeedingNewIOS(Map<String, dynamic> config) {
+  return hasIOSConfig(config) && config['ios'] != false;
+}
+
+bool isNeedingNewAndroid(Map<String, dynamic> config) {
+  return hasAndroidConfig(config) && config['android'] != false;
 }
 
 Future<bool> plistExist() async {

@@ -15,7 +15,9 @@ class UpdateRule {
 }
 
 class FileUpdater {
-  FileUpdater(List<String> lines,XmlDocument document) : _data = lines, _xml = document;
+  FileUpdater(List<String> lines, XmlDocument document)
+      : _data = lines,
+        _xml = document;
   final List<String> _data;
   final XmlDocument _xml;
 
@@ -25,20 +27,19 @@ class FileUpdater {
     bool fromXml = fileUpdater.update(updateRule);
     if (fromXml) {
       fileUpdater.toFileXml(file);
-    }
-    else {
+    } else {
       fileUpdater.toFile(file);
     }
   }
 
-  static Future<void> updateIosBundleURL(File file, UpdateRule updateRule) async {
+  static Future<void> updateIosBundleURL(
+      File file, UpdateRule updateRule) async {
     final FileUpdater fileUpdater = await FileUpdater.fromFile(file);
 
     bool fromXml = fileUpdater.updateFbBundle(updateRule);
     if (fromXml) {
       fileUpdater.toFileXml(file);
-    }
-    else {
+    } else {
       fileUpdater.toFile(file);
     }
   }
@@ -48,7 +49,8 @@ class FileUpdater {
   }
 
   static Future<FileUpdater> fromFile(File file) async {
-    return FileUpdater(await file.readAsLines(), XmlDocument.parse(file.readAsStringSync()));
+    return FileUpdater(
+        await file.readAsLines(), XmlDocument.parse(file.readAsStringSync()));
   }
 
   Future<void> toFile(File file) async {
@@ -63,13 +65,11 @@ class FileUpdater {
     if (rule.isXmlFile()) {
       if (rule.xmlHasKey(_xml)) {
         return rule.update(_data, _xml);
-      }
-      else {
+      } else {
         rule.addXml(_xml);
         return true;
       }
-    }
-    else {
+    } else {
       rule.update(_data, _xml);
       // for (int x = 0; x < _data.length; x++) {
       //   _data[x] = rule.update(_data[x]);
@@ -81,12 +81,11 @@ class FileUpdater {
     }
   }
 
-  bool updateFbBundle(UpdateRule rule){
+  bool updateFbBundle(UpdateRule rule) {
     if (rule.isXmlFile()) {
       if (rule.xmlHasKeyArray(_xml)) {
         return rule.updateFbBundle(_data, _xml);
-      }
-      else {
+      } else {
         rule.addBundleURLSchemes(_xml);
         return true;
       }
@@ -99,4 +98,3 @@ class FileUpdater {
     return _data.join('\n');
   }
 }
-

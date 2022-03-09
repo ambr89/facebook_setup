@@ -14,8 +14,8 @@ class XmlStrings implements UpdateRule {
   bool update(List<String> _data, XmlDocument document) {
     final totalKey = document.findAllElements('string');
     for (XmlElement elem in totalKey) {
-      for (XmlAttribute attr in elem.attributes){
-        if (attr.value == key){
+      for (XmlAttribute attr in elem.attributes) {
+        if (attr.value == key) {
           elem.innerText = value;
         }
       }
@@ -55,14 +55,13 @@ class XmlStrings implements UpdateRule {
     return true;
   }
 
-
   @override
   bool xmlHasKey(XmlDocument document) {
     final totalKey = document.findAllElements('string');
     bool exist = false;
     for (XmlElement elem in totalKey) {
-      for (XmlAttribute attr in elem.attributes){
-        if (attr.value == key){
+      for (XmlAttribute attr in elem.attributes) {
+        if (attr.value == key) {
           exist = true;
           break;
         }
@@ -88,6 +87,4 @@ class XmlStrings implements UpdateRule {
     // TODO: implement addFbBundle
     throw UnimplementedError();
   }
-  
-  
 }
