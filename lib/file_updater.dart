@@ -26,9 +26,9 @@ class FileUpdater {
 
     bool fromXml = fileUpdater.update(updateRule);
     if (fromXml) {
-      fileUpdater.toFileXml(file);
+      await fileUpdater.toFileXml(file);
     } else {
-      fileUpdater.toFile(file);
+      await fileUpdater.toFile(file);
     }
   }
 
