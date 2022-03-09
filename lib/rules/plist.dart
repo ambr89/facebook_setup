@@ -89,8 +89,8 @@ class Plist implements UpdateRule {
             .first;
         if (reg.hasMatch(arrStr.text)) {
           exist = true;
+          break;
         }
-        break;
       }
     }
     return exist;
