@@ -1,3 +1,7 @@
+# [0.0.6] - 2022-09-27
+#### Added
+- Added FacebookClientToken management
+
 # [0.0.5] - 2022-03-10
 #### Fixed
 - A break statement in the wrong position caused the duplication of some lines in the Info.plist file

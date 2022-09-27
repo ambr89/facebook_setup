@@ -21,7 +21,7 @@ const String ANDROID_STRING_FILE =
 const String iosDefaultIconName = 'Icon-App';
 
 const String errorMissingFbKey =
-    'Missing "fb_key" o "fb_app_name" within configuration';
+    'Missing "fb_key" or "fb_app_name" or "fb_client_token" within configuration';
 const String errorMissingPlatform =
     'No platform specified within config to generate icons for.';
 const String noInfoPlistFileFoundName =

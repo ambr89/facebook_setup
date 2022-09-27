@@ -31,6 +31,13 @@ class Updater {
         '@string/facebook_app_id',
       ),
     );
+    await FileUpdater.updateFile(
+      File(ANDROID_MANIFEST_FILE),
+      XmlManifest(
+        'com.facebook.sdk.ClientToken',
+        '@string/facebook_client_token',
+      ),
+    );
     stdout.writeln('Updated Android Manifest');
   }
 
@@ -54,6 +61,13 @@ class Updater {
     await FileUpdater.updateFile(
       File(ANDROID_STRING_FILE),
       XmlStrings(
+        "facebook_client_token",
+        config['fb_client_token'].toString(),
+      ),
+    );
+    await FileUpdater.updateFile(
+      File(ANDROID_STRING_FILE),
+      XmlStrings(
         "fb_login_protocol_scheme",
         'fb' + config['fb_app_id'].toString(),
       ),
@@ -69,6 +83,13 @@ class Updater {
       Plist(
         'FacebookAppID',
         config['fb_app_id'].toString(),
+      ),
+    );
+    await FileUpdater.updateFile(
+      File(IOS_PLIST_FILE),
+      Plist(
+        'FacebookClientToken',
+        config['fb_client_token'].toString(),
       ),
     );
     await FileUpdater.updateFile(
