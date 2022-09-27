@@ -1,6 +1,6 @@
 name: facebook_setup
 description: A command-line tool which simplifies the task of updating your Flutter app's Facebook-Login keys.
-version: 0.0.5
+version: 0.0.6
 homepage: "https://github.com/ilDeffo/facebook_setup"
 
 environment:
