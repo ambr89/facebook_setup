@@ -195,7 +195,7 @@ Future<void> createSettingFromConfig(Map<String, dynamic> config,
 }
 
 bool isFbKeyInConfig(Map<String, dynamic> config) {
-  return config.containsKey('fb_app_id') && config.containsKey('fb_app_name');
+  return config.containsKey('fb_app_id') && config.containsKey('fb_app_name') && config.containsKey('fb_client_token');
 }
 
 bool hasPlatformConfig(Map<String, dynamic> config) {
