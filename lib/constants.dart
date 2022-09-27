@@ -36,6 +36,7 @@ const String noAndroidStringFileFoundName =
 
 const String MANIFEST_STRING =
     '<meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>'
+    '<meta-data android:name="com.facebook.sdk.ClientToken" android:value="@string/facebook_client_token"/>'
     '<activity android:name="com.facebook.FacebookActivity"'
     ' android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"'
     ' android:label="@string/app_name" />'

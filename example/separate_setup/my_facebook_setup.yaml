@@ -2,5 +2,6 @@
 facebook_setup:
   fb_app_id: "YOUR_FB_APP_ID"
   fb_app_name: "My App Name"
+  fb_client_token: "My Client token"
   android: true
   ios: true
