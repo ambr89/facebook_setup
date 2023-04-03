@@ -46,7 +46,7 @@ Future<void> setFacebookKeys(List<String> arguments) async {
       abbr: 'f', help: 'Config file (default: $defaultConfigFile)');
   final ArgResults argResults = parser.parse(arguments);
 
-  if (argResults[helpFlag] != null) {
+  if (argResults[helpFlag] != false) {
     stdout.writeln('Generates icons for iOS and Android');
     stdout.writeln(parser.usage);
     exit(0);
@@ -135,7 +135,7 @@ Map<String, dynamic> loadConfigFile(String path, String? fileOptionResult) {
   final File file = File(path);
   final String yamlString = file.readAsStringSync();
   // ignore: always_specify_types
-  final Map yamlMap = loadYaml(yamlString) as Map;
+  var yamlMap = loadYaml(yamlString);
 
   if ((yamlMap['facebook_setup'] is! Map)) {
     stderr.writeln(NoConfigFoundException('Check that your config file '

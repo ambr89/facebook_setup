@@ -1,3 +1,8 @@
+# [0.0.8] - 2023-04-03
+#### Fixed
+- Fixed version number in print
+- Replaced a wrong 'null' with 'false' in if condition
+
 # [0.0.7] - 2023-04-03
 #### Changed
 - Updated dependencies
