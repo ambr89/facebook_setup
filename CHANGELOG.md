@@ -1,3 +1,7 @@
+# [0.0.7] - 2023-04-03
+#### Changed
+- Updated dependencies
+
 # [0.0.6] - 2022-09-27
 #### Added
 - Added FacebookClientToken management

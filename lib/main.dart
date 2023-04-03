@@ -1,15 +1,12 @@
 library package_test;
 
 import 'dart:io';
-import 'constants.dart';
 import 'package:args/args.dart';
 import 'package:facebook_setup/facebook_setup.dart';
 import 'package:path/path.dart' as path;
 import 'package:yaml/yaml.dart';
 import 'package:facebook_setup/custom_exceptions.dart';
 import 'package:facebook_setup/constants.dart';
-
-import 'custom_exceptions.dart';
 
 // test region
 //
@@ -49,7 +46,7 @@ Future<void> setFacebookKeys(List<String> arguments) async {
       abbr: 'f', help: 'Config file (default: $defaultConfigFile)');
   final ArgResults argResults = parser.parse(arguments);
 
-  if (argResults[helpFlag]) {
+  if (argResults[helpFlag] != null) {
     stdout.writeln('Generates icons for iOS and Android');
     stdout.writeln(parser.usage);
     exit(0);
@@ -138,7 +135,7 @@ Map<String, dynamic> loadConfigFile(String path, String? fileOptionResult) {
   final File file = File(path);
   final String yamlString = file.readAsStringSync();
   // ignore: always_specify_types
-  final Map yamlMap = loadYaml(yamlString);
+  final Map yamlMap = loadYaml(yamlString) as Map;
 
   if ((yamlMap['facebook_setup'] is! Map)) {
     stderr.writeln(NoConfigFoundException('Check that your config file '
