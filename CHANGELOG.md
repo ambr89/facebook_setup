@@ -1,3 +1,7 @@
+# [0.0.9] - 2024-07-12
+#### Fixed
+- Fixed merge info.plist with google or other with same keys
+
 # [0.0.8] - 2023-04-03
 #### Fixed
 - Fixed version number in print

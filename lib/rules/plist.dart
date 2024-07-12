@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:xml/xml.dart';
 
 import '../file_updater.dart';
@@ -35,6 +37,7 @@ class Plist implements UpdateRule {
   @override
   bool updateFbBundle(List<String> _data, XmlDocument document) {
     var reg = RegExp('<string>fb[0-9]+</string>');
+    print("TEST");
     for (int x = 0; x < _data.length; x++) {
       String line = _data[x];
       if (reg.hasMatch(line)) {
@@ -80,19 +83,19 @@ class Plist implements UpdateRule {
     bool exist = false;
     var reg = RegExp('fb[0-9]+');
     for (XmlElement elem in totalKey) {
-      if (elem.text == 'CFBundleURLSchemes') {
+      if (elem.innerText == 'CFBundleURLSchemes') {
         var parent = elem.ancestorElements.first;
-        var arrStr = parent
-            .findAllElements("array")
-            .first
-            .findAllElements("string")
-            .first;
-        if (reg.hasMatch(arrStr.text)) {
-          exist = true;
-          break;
+        var arrStr = parent.findAllElements("array").first;
+        for(XmlElement elem2 in arrStr.findAllElements("string")) {
+          if (reg.hasMatch(elem2.innerText)) {
+            exist = true;
+            break;
+          }
         }
       }
     }
+    stdout.writeln("TROVATA fb_nummm");
+    stdout.writeln(exist);
     return exist;
   }
 

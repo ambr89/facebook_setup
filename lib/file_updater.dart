@@ -35,7 +35,9 @@ class FileUpdater {
   static Future<void> updateIosBundleURL(
       File file, UpdateRule updateRule) async {
     final FileUpdater fileUpdater = await FileUpdater.fromFile(file);
-
+    stdout.writeln("updateIosBundleURL");
+    stdout.writeln(updateRule.getKey());
+    stdout.writeln(updateRule.getValue());
     bool fromXml = fileUpdater.updateFbBundle(updateRule);
     if (fromXml) {
       fileUpdater.toFileXml(file);
@@ -82,6 +84,8 @@ class FileUpdater {
   }
 
   bool updateFbBundle(UpdateRule rule) {
+    stdout.writeln("updateFbBundle ");
+    stdout.writeln(rule);
     if (rule.isXmlFile()) {
       if (rule.xmlHasKeyArray(_xml)) {
         return rule.updateFbBundle(_data, _xml);
