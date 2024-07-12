@@ -1,6 +1,7 @@
 # [0.0.9] - 2024-07-12
 #### Fixed
 - Fixed merge info.plist with google or other with same keys
+- Dart 4.0.0 support
 
 # [0.0.8] - 2023-04-03
 #### Fixed
